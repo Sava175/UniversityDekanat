@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <title>Student List</title>
+</head>
+
+<body>
+<div class="container d-flex justify-content-center mt-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <div class="row">
+                    <div class="col-6">
+                        <h1 class="display-6" th:text="${group.nameOfGroup}"></h1>
+                    </div>
+                    <form class="col-6 d-flex align-items-center" th:action="@{/student/group/{id}/search(id=${group.id})}"
+                          th:object="${student}"
+                          method="post">
+
+                        <input type="text" class="form-control me-2" placeholder="Lastname of student" th:field="*{lastName}"
+                               name="title">
+                        <button class="btn btn-light" type="submit">Search</button>
+
+                    </form>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Group</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Birth</th>
+                        <th>Grade</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="student: ${group.getStudents()}">
+                        <td th:text="${student.id}"></td>
+                        <td th:text="${student.firstName}"></td>
+                        <td th:text="${student.lastName}"></td>
+                        <td th:text="${group.nameOfGroup}"></td>
+                        <td th:text="${student.email}"></td>
+                        <td th:text="${student.phone}"></td>
+                        <td th:text="${student.dateOfBirth}"></td>
+                        <td th:text="${student.averageGrade}"></td>
+
+                    </tr>
+                    <!-- More table rows for students -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
